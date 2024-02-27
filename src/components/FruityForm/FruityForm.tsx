@@ -26,7 +26,7 @@ export const FruityForm = () => {
   const { control, handleSubmit, formState, watch, setValue, reset } = useForm({
     resolver: yupResolver(schema),
   });
-
+  const [notification, setNotification] = useState("");
   const selectedGroup = watch("selection");
 
   useEffect(() => {
@@ -71,6 +71,7 @@ export const FruityForm = () => {
         reset();
         setValue("selection", "");
         console.log("Check cookies :", responseData);
+        setNotification(`Success! check cookies !`);
       } else {
         console.error("Error during form submission:", responseData);
       }
@@ -91,36 +92,67 @@ export const FruityForm = () => {
             backgroundColor: "#ffffff",
           }}
         >
-          <FormControl fullWidth sx={{ marginBottom: 2, maxWidth: 400 }}>
-            <InputLabel id="select-label">Wybierz</InputLabel>
+          <FormControl
+            fullWidth
+            sx={{
+              maxWidth: 320,
+            }}
+          >
+            <InputLabel
+              id="select-label"
+              sx={{ fontSize: "14px", bottom: "0px" }}
+         
+            >
+              Wybierz
+            </InputLabel>
             <Controller
               name="selection"
               control={control}
               defaultValue=""
               render={({ field }) => (
-                <Select labelId="select-label" label="Wybierz" {...field}>
+                <Select
+                  sx={{ height: "50px" }}
+                  labelId="select-label"
+                  label="Wybierz"
+                  {...field}
+                  onClick={()=> setNotification('')}
+                >
                   <MenuItem value="Warzywa">Warzywa</MenuItem>
                   <MenuItem value="Owoce">Owoce</MenuItem>
                 </Select>
               )}
             />
           </FormControl>
+
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{
+              backgroundColor: "black",
+              color: "#ffffff",
+              marginTop: 2,
+              height: "30px",
+            }}
+          >
+            Wyślij
+          </Button>
           <Typography
             variant="subtitle1"
             sx={{
-              margin: "0px 10px",
+              margin: "20px 0px",
               color: "red",
+              fontSize: "18px",
             }}
           >
             {formState.errors.selection?.message}
           </Typography>
-          <Button
-            type="submit"
-            variant="contained"
-            sx={{ backgroundColor: "black", color: "#ffffff", marginTop: 2 }}
-          >
-            Wyślij
-          </Button>
+          {notification && (
+            <Typography
+              sx={{  color: "green", fontSize: "15px" }}
+            >
+              {notification}
+            </Typography>
+          )}
           {selectedGroup && (
             <ListContainer
               selectedGroup={selectedGroup}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, Input, TextField, Typography } from "@mui/material";
 import {
   fruityFoodItems,
   vegetableItems,
@@ -95,6 +95,7 @@ export const ListContainer: React.FC<ListContainerProps> = ({
       }));
     }
   };
+
   const handleAddPrice = (itemId: number, price: number | null) => {
     setItemPrices((prevPrices) => {
       const updatedPrices = { ...prevPrices, [itemId]: price };
@@ -104,7 +105,13 @@ export const ListContainer: React.FC<ListContainerProps> = ({
   };
 
   return (
-    <Box>
+    <Box
+      sx={{
+        "@media(max-width: 280px)": {
+          width: "240px",
+        },
+      }}
+    >
       <ContentHeader
         onToggleAll={handleToggleAll}
         groupName={selectedGroup}
@@ -128,23 +135,28 @@ export const ListContainer: React.FC<ListContainerProps> = ({
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "left",
+                      margin: "20px 0px",
                     }}
                   >
-                    <Typography sx={{ maxWidth: 400 }}>
+                    <Typography
+                      sx={{
+                        margin: "5px 0px",
+                      }}
+                    >
                       {checkedItem.label}
                     </Typography>
-                    <TextField
+                    <Input
                       type="number"
                       placeholder={`Cena dla ${checkedItem.label}`}
                       onChange={handleInputChange}
                       sx={{
-                        border: "1px solid black",
                         borderRadius: "4px",
                         marginBottom: "15px",
-                        "&:hover": {
-                          border: "0px transparent",
+                        height: "auto",
+                        width: "300px",
+                        "@media(max-width: 280px)": {
+                          width: "auto",
                         },
-                        width: "400px",
                       }}
                     />
                     <Button
@@ -153,6 +165,8 @@ export const ListContainer: React.FC<ListContainerProps> = ({
                       sx={{
                         backgroundColor: "black",
                         color: "#ffffff",
+                        height: "30px",
+                        fontSize: "12px",
                       }}
                     >
                       Dodaj cenę

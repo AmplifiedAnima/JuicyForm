@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Checkbox, IconButton, ListItem } from "@mui/material";
+import { Box, Checkbox, IconButton, ListItem } from "@mui/material";
 
 interface ContentHeaderProps {
   onToggleAll: (isChecked: boolean) => void;
@@ -26,10 +26,12 @@ export const ContentHeader: React.FC<ContentHeaderProps> = ({
   };
 
   return (
-    <ListItem>
-      <Checkbox checked={isChecked} onChange={handleToggleAll} />
+    <ListItem  sx={{ right: "22px", marginTop: "20px",width:'320px' }}>
+      <Checkbox checked={isChecked} onChange={handleToggleAll}/>
+      <Box  sx={{margin:'0px 20px'}}>
       <span>{groupName}</span>
-      <IconButton onClick={onToggleExpand} >{isExpanded ? "▼" : "►"}</IconButton>
+      </Box>
+      <IconButton onClick={onToggleExpand}>{isExpanded ? "▼" : "►"}</IconButton>
     </ListItem>
   );
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { Checkbox, List, ListItem, Typography } from "@mui/material";
+import { Box, Checkbox, List, ListItem, Typography } from "@mui/material";
 import { FoodItemsInterface } from "../../../interfaces/FoodItemsInterface";
 
 interface ContentProps {
@@ -20,19 +20,25 @@ export const Content: React.FC<ContentProps> = ({
       {items.map((item) => (
         <ListItem
           key={item.id}
-          sx={{ borderBottom: "0.1px solid rgba(0, 0, 0, 0.2)" }}
+          sx={{
+            
+            borderBottom: "0.1px solid rgba(0, 0, 0, 0.2)",
+          }}
         >
           <Checkbox
             checked={item.checked}
             onChange={() => onToggleItem(item.id)}
             sx={{
+              right: "22px",
               color: "black",
               "&.Mui-checked": {
                 color: "black",
               },
             }}
           />
+          <Box sx={{margin:'0px 0px'}}>
           <span>{item.label}</span>
+          </Box>
           {/* itemPrices[item.id] !== 0 by nie wyświetlać wartości zerowych jesli nie zostaly wprowadzone */}
           {item.checked &&
           itemPrices[item.id] !== null &&
